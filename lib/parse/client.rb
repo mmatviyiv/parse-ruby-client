@@ -32,6 +32,7 @@ module Parse
 
     def initialize(data = {}, &_blk)
       @host           = data[:host] || Protocol::HOST
+      @protocol       = data[:secured] ? 'https' : 'http'
       @application_id = data[:application_id]
       @api_key        = data[:api_key]
       @master_key     = data[:master_key]
@@ -50,7 +51,7 @@ module Parse
 
       options = { request: { timeout: @timeout, open_timeout: @timeout } }
 
-      @session = Faraday.new("https://#{host}", options) do |c|
+      @session = Faraday.new("#{protocol}://#{host}", options) do |c|
         c.request :json
 
         c.use Faraday::GetMethodOverride
