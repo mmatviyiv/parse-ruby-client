@@ -51,7 +51,7 @@ module Parse
 
       options = { request: { timeout: @timeout, open_timeout: @timeout } }
 
-      @session = Faraday.new("#{protocol}://#{host}", options) do |c|
+      @session = Faraday.new("#{@protocol}://#{host}", options) do |c|
         c.request :json
 
         c.use Faraday::GetMethodOverride
